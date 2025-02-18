@@ -1,3 +1,5 @@
 import './styles.css'
 
-console.log('Hello World!');
+import loadHeader from './modules/header';
+
+loadHeader();

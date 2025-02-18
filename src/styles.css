@@ -11,3 +11,7 @@ aside {
   width: 300px;
   background-color: bisque;
 }
+
+.tasks-container {
+  margin-left: 300px;
+}

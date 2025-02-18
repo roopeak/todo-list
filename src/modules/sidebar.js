@@ -27,6 +27,62 @@ function generateSidebar() {
 	addProject.textContent = 'Create a project';
 	projects.appendChild(addProject);
 
+	// Event listeners to all tasks
+	tasks.addEventListener('mouseover', () => {
+		tasks.style.backgroundColor = 'white';
+		tasks.style.cursor = 'pointer';
+	
+		tasks.addEventListener('mouseout', () => {
+			tasks.style.backgroundColor = 'bisque';
+		})
+	})
+
+	tasks.addEventListener('click', () => {
+		console.log('load all tasks');
+	})
+
+  // Event listeners to today
+	todayTasks.addEventListener('mouseover', () => {
+		todayTasks.style.backgroundColor = 'white';
+		todayTasks.style.cursor = 'pointer';
+
+		todayTasks.addEventListener('mouseout', () => {
+			todayTasks.style.backgroundColor = 'bisque';
+		});
+	});
+
+	todayTasks.addEventListener('click', () => {
+		console.log("load today's tasks");
+	});
+
+	// Event listeners to this week
+	weekTasks.addEventListener('mouseover', () => {
+		weekTasks.style.backgroundColor = 'white';
+		weekTasks.style.cursor = 'pointer';
+
+		weekTasks.addEventListener('mouseout', () => {
+			weekTasks.style.backgroundColor = 'bisque';
+		});
+	});
+
+	weekTasks.addEventListener('click', () => {
+		console.log("load week's tasks");
+	});
+
+	// Event listeners to create a project
+	addProject.addEventListener('mouseover', () => {
+		addProject.style.backgroundColor = 'white';
+		addProject.style.cursor = 'pointer';
+
+		addProject.addEventListener('mouseout', () => {
+			addProject.style.backgroundColor = 'bisque';
+		});
+	});
+
+	addProject.addEventListener('click', () => {
+		console.log("load create a project");
+	});
+
 	return sidebar;
 }
 

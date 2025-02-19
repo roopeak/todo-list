@@ -88,6 +88,27 @@ function generateSidebar() {
 
 	addProject.addEventListener('click', () => {
 		console.log("load create a project");
+		const createProjectContainer = document.createElement('div');
+		createProjectContainer.classList.add('create-project-container');
+
+		createProjectContainer.innerHTML = 
+			`
+				<form action=addProject()>
+					<input 
+						type='text'
+						id='project-name'
+						placeholder='Enter project name'
+						required>
+					<input
+						type='submit'
+						value='Create'>
+				</form>
+				<button class='cancel-project-button'>
+					Cancel
+				</button>
+			`;
+
+		sidebar.appendChild(createProjectContainer);
 	});
 
 	return sidebar;

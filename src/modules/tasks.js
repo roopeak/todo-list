@@ -1,4 +1,12 @@
 import { loadUI } from "./loadUI";
+import { Task } from "./Task";
+
+
+let tasks = [
+	{
+		name: 'Clean a house'
+	}
+];
 
 function generateTasks() {
 	const tasksContainer = document.createElement('div');
@@ -28,7 +36,7 @@ function generateTasks() {
 			const newTaskInputContainer = document.createElement('div');
 			newTaskInputContainer.innerHTML = 
 				`
-					<form submit=addTask()>
+					<form>
 						<input
 							type='text'
 							id='task-input'
@@ -45,15 +53,23 @@ function generateTasks() {
 			const taskSubmit = document.getElementById('task-submit');
 
 			taskSubmit.addEventListener('click', () => {
-				newTaskInputContainer.innerHTML = '';
-				loadTasks();
+				const taskName = document.getElementById('task-input').value;
+				
+				if (taskName != '') {
+					addTask(document.getElementById('task-input').value)
+					loadTasks();
+				}
 			});
 		});
 	});
 	
-
-
 	return tasksContainer;
+}
+
+function addTask(name) {
+	const newTask = new Task(name);
+	tasks.push(newTask);
+	console.log(tasks);
 }
 
 function loadTasks() {

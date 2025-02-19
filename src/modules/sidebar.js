@@ -1,3 +1,7 @@
+import loadTasks from "./tasks";
+import loadToday from "./today";
+import loadWeek from "./week";
+
 function generateSidebar() {
 	const sidebar = document.createElement('aside');
 	const sidebarLinks = document.createElement('nav');
@@ -39,6 +43,7 @@ function generateSidebar() {
 
 	tasks.addEventListener('click', () => {
 		console.log('load all tasks');
+		loadTasks();
 	})
 
   // Event listeners to today
@@ -53,6 +58,7 @@ function generateSidebar() {
 
 	todayTasks.addEventListener('click', () => {
 		console.log("load today's tasks");
+		loadToday();
 	});
 
 	// Event listeners to this week
@@ -67,6 +73,7 @@ function generateSidebar() {
 
 	weekTasks.addEventListener('click', () => {
 		console.log("load week's tasks");
+		loadWeek();
 	});
 
 	// Event listeners to create a project

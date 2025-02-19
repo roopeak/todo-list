@@ -47,10 +47,12 @@ function generateTasks() {
 							id='task-submit'
 							value='Add'>
 					</form>
+					<button id='cancel-task-add'>Cancel</button>
 				`;
 			tasksContainer.appendChild(newTaskInputContainer);
 
 			const taskSubmit = document.getElementById('task-submit');
+			const taskCancel = document.getElementById('cancel-task-add');
 
 			taskSubmit.addEventListener('click', () => {
 				const taskName = document.getElementById('task-input').value;
@@ -60,6 +62,10 @@ function generateTasks() {
 					loadTasks();
 				}
 			});
+
+			taskCancel.addEventListener('click', () => {
+				loadTasks();
+			})
 		});
 	});
 	

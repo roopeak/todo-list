@@ -1,3 +1,3 @@
-export function Task(name) {
-	this.name = name;
+export function Task(title) {
+	this.title = title;
 }

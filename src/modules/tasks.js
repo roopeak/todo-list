@@ -9,16 +9,28 @@ let tasks = [
 ];
 
 function generateTasks() {
-	const tasksContainer = document.createElement('div');
-	tasksContainer.classList.add('tasks-container');
+	const allTasksContainer = document.createElement('div');
+	allTasksContainer.classList.add('tasks-container');
 	
 	const tasksHeader = document.createElement('h1');
 	tasksHeader.textContent = 'All tasks';
-	tasksContainer.appendChild(tasksHeader);
+	allTasksContainer.appendChild(tasksHeader);
 
 	const newTask = document.createElement('div');
 	newTask.textContent = 'New task';
-	tasksContainer.appendChild(newTask);
+	allTasksContainer.appendChild(newTask);
+
+	if (tasks.length != 0) {
+		for (let i = 0; i < tasks.length; i++) {
+			const taskCard = document.createElement('div');
+			const taskTitle = document.createElement('h3');
+
+			taskTitle.textContent = tasks[i].title;
+
+			allTasksContainer.appendChild(taskCard);
+			taskCard.appendChild(taskTitle);
+		}
+	}
 
 	// Event listeners to new task
 	newTask.addEventListener('mouseover', () => {
@@ -30,50 +42,50 @@ function generateTasks() {
 			newTask.style.backgroundColor = 'white';
 			newTask.style.color = 'black';
 		});
+	});
 
-		newTask.addEventListener('click', () => {
-			newTask.textContent = '';
-			const newTaskInputContainer = document.createElement('div');
-			newTaskInputContainer.innerHTML = 
-				`
-					<form>
-						<input
-							type='text'
-							id='task-input'
-							placeholder='Enter a task'
-							required>
-						<input
-							type='submit'
-							id='task-submit'
-							value='Add'>
-					</form>
-					<button id='cancel-task-add'>Cancel</button>
-				`;
-			tasksContainer.appendChild(newTaskInputContainer);
+	newTask.addEventListener('click', () => {
+		newTask.textContent = '';
+		const newTaskInputContainer = document.createElement('div');
+		newTaskInputContainer.innerHTML = 
+			`
+				<form>
+					<input
+						type='text'
+						id='task-input'
+						placeholder='Enter a task'
+						required>
+					<input
+						type='submit'
+						id='task-submit'
+						value='Add'>
+				</form>
+				<button id='cancel-task-add'>Cancel</button>
+			`;
+		allTasksContainer.appendChild(newTaskInputContainer);
 
-			const taskSubmit = document.getElementById('task-submit');
-			const taskCancel = document.getElementById('cancel-task-add');
+		const taskSubmit = document.getElementById('task-submit');
+		const taskCancel = document.getElementById('cancel-task-add');
 
-			taskSubmit.addEventListener('click', () => {
-				const taskName = document.getElementById('task-input').value;
-				
-				if (taskName != '') {
-					addTask(document.getElementById('task-input').value)
-					loadTasks();
-				}
-			});
-
-			taskCancel.addEventListener('click', () => {
+		taskSubmit.addEventListener('click', () => {
+			const taskTitle = document.getElementById('task-input').value;
+			
+			if (taskTitle != '') {
+				addTask(document.getElementById('task-input').value)
 				loadTasks();
-			})
+			}
 		});
+
+		taskCancel.addEventListener('click', () => {
+			loadTasks();
+		})
 	});
 	
-	return tasksContainer;
+	return allTasksContainer;
 }
 
-function addTask(name) {
-	const newTask = new Task(name);
+function addTask(title) {
+	const newTask = new Task(title);
 	tasks.push(newTask);
 	console.log(tasks);
 }

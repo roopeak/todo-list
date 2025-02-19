@@ -1,3 +1,5 @@
+import { loadUI } from "./loadUI";
+
 function generateTasks() {
 	const tasksContainer = document.createElement('div');
 	tasksContainer.classList.add('tasks-container');
@@ -15,6 +17,7 @@ function generateTasks() {
 
 function loadTasks() {
 	const content = document.querySelector('.content');
+	loadUI();
 	content.appendChild(generateTasks());
 }
 

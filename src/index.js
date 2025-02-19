@@ -1,9 +1,5 @@
 import './styles.css'
 
-import loadHeader from './modules/header';
-import loadSidebar from './modules/sidebar';
-import loadTasks from './modules/tasks';
+import { loadUI } from './modules/loadUI';
 
-loadHeader();
-loadSidebar();
-loadTasks();
+loadUI();

@@ -4,7 +4,9 @@ import { Task } from "./Task";
 
 let tasks = [
 	{
-		name: 'Clean a house'
+		title: 'Clean a house',
+		dueDate: 'not set',
+		priority: 'normal',
 	}
 ];
 
@@ -20,16 +22,24 @@ function generateTasks() {
 	newTask.textContent = 'New task';
 	allTasksContainer.appendChild(newTask);
 
-	if (tasks.length != 0) {
-		for (let i = 0; i < tasks.length; i++) {
+	if (tasks.length > 0) {
+		tasks.map((task) => {
 			const taskCard = document.createElement('div');
+			const taskDone = document.createElement('input');
+			taskDone.type = 'checkbox';
+
+			taskDone.addEventListener('click', () => {
+				removeTask(task.title);
+			})
+
 			const taskTitle = document.createElement('h3');
-
-			taskTitle.textContent = tasks[i].title;
-
+	
+			taskTitle.textContent = task.title;
+	
 			allTasksContainer.appendChild(taskCard);
+			taskCard.appendChild(taskDone);
 			taskCard.appendChild(taskTitle);
-		}
+		});
 	}
 
 	// Event listeners to new task
@@ -85,9 +95,15 @@ function generateTasks() {
 }
 
 function addTask(title) {
-	const newTask = new Task(title);
+	const newTask = new Task(title, 'not set', 'normal');
 	tasks.push(newTask);
 	console.log(tasks);
+}
+
+function removeTask(taskTitle) {
+	tasks = tasks.filter(task => task.title !== taskTitle);
+	loadTasks();
+	// tasks = tasks.find((task) => task.title === taskTitle));
 }
 
 function loadTasks() {

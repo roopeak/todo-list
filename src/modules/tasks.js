@@ -1,5 +1,5 @@
 import { loadUI } from "./loadUI";
-import { Task } from "./Task";
+import Task from './Task';
 
 
 let tasks = [
@@ -27,9 +27,17 @@ function generateTasks() {
 			const taskCard = document.createElement('div');
 			const taskDone = document.createElement('input');
 			taskDone.type = 'checkbox';
+			const taskDate = document.createElement('input');
+			taskDate.type = 'date';
 
 			taskDone.addEventListener('click', () => {
 				removeTask(task.title);
+			})
+
+			taskDate.addEventListener('change', () => {
+				let input = taskDate.value;
+				let dateEntered = new Date(input);
+				task.dueDate = new Task(task.title, parseDate(dateEntered), task.title);
 			})
 
 			const taskTitle = document.createElement('h3');
@@ -39,6 +47,7 @@ function generateTasks() {
 			allTasksContainer.appendChild(taskCard);
 			taskCard.appendChild(taskDone);
 			taskCard.appendChild(taskTitle);
+			taskCard.appendChild(taskDate);
 		});
 	}
 
@@ -103,7 +112,15 @@ function addTask(title) {
 function removeTask(taskTitle) {
 	tasks = tasks.filter(task => task.title !== taskTitle);
 	loadTasks();
-	// tasks = tasks.find((task) => task.title === taskTitle));
+}
+
+function parseDate(dateToParse) {
+	const date = dateToParse.toString();
+	const dateValuesArray = date.split(' ');
+	const dayNumber = dateValuesArray[2];
+	const month = dateValuesArray[1];
+	const year = dateValuesArray[3];
+	return `${dayNumber}/${month}/${year}`
 }
 
 function loadTasks() {

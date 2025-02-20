@@ -27,27 +27,38 @@ function generateTasks() {
 			const taskCard = document.createElement('div');
 			const taskDone = document.createElement('input');
 			taskDone.type = 'checkbox';
-			const taskDate = document.createElement('input');
-			taskDate.type = 'date';
 
+			
 			taskDone.addEventListener('click', () => {
 				removeTask(task.title);
 			})
-
-			taskDate.addEventListener('change', () => {
-				let input = taskDate.value;
-				let dateEntered = new Date(input);
-				task.dueDate = new Task(task.title, parseDate(dateEntered), task.title);
-			})
-
+			
+			
 			const taskTitle = document.createElement('h3');
-	
+			
 			taskTitle.textContent = task.title;
-	
+			
 			allTasksContainer.appendChild(taskCard);
 			taskCard.appendChild(taskDone);
 			taskCard.appendChild(taskTitle);
-			taskCard.appendChild(taskDate);
+			
+			if (task.dueDate === 'not set') {
+				const taskDate = document.createElement('input');
+				taskDate.type = 'date';
+
+				taskDate.addEventListener('change', () => {
+					let input = taskDate.value;
+					let dateEntered = new Date(input);
+					task.dueDate = parseDate(dateEntered);
+					loadTasks();
+				})
+
+				taskCard.appendChild(taskDate);
+			} else {
+				const taskDate = document.createElement('p');
+				taskDate.textContent = task.dueDate;
+				taskCard.appendChild(taskDate);
+			}
 		});
 	}
 
@@ -120,7 +131,8 @@ function parseDate(dateToParse) {
 	const dayNumber = dateValuesArray[2];
 	const month = dateValuesArray[1];
 	const year = dateValuesArray[3];
-	return `${dayNumber}/${month}/${year}`
+
+	return `${dayNumber}/${month}/${year}`;
 }
 
 function loadTasks() {

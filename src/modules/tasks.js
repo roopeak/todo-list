@@ -1,10 +1,12 @@
 import { loadUI } from "./loadUI";
-import { Task } from "./Task";
+import Task from './Task';
 
 
 let tasks = [
 	{
-		name: 'Clean a house'
+		title: 'Clean a house',
+		dueDate: 'not set',
+		priority: 'normal',
 	}
 ];
 
@@ -20,16 +22,63 @@ function generateTasks() {
 	newTask.textContent = 'New task';
 	allTasksContainer.appendChild(newTask);
 
-	if (tasks.length != 0) {
-		for (let i = 0; i < tasks.length; i++) {
+	if (tasks.length > 0) {
+		tasks.map((task) => {
 			const taskCard = document.createElement('div');
+			const taskDone = document.createElement('input');
+			taskDone.type = 'checkbox';
+
+			
+			taskDone.addEventListener('click', () => {
+				removeTask(task.title);
+			})
+			
 			const taskTitle = document.createElement('h3');
-
-			taskTitle.textContent = tasks[i].title;
-
+			
+			taskTitle.textContent = task.title;
+			
 			allTasksContainer.appendChild(taskCard);
+			taskCard.appendChild(taskDone);
 			taskCard.appendChild(taskTitle);
-		}
+			
+			if (task.dueDate === 'not set') {
+				const taskDate = document.createElement('input');
+				taskDate.type = 'date';
+			
+				taskDate.addEventListener('change', () => {
+					let input = taskDate.value;
+					let dateEntered = new Date(input);
+					task.dueDate = parseDate(dateEntered);
+					loadTasks();
+				});
+			
+				taskCard.appendChild(taskDate);
+			} else {
+				const taskDate = document.createElement('p');
+				taskDate.textContent = task.dueDate;
+				taskCard.appendChild(taskDate);
+		
+				taskDate.addEventListener('mouseover', () => {
+					taskDate.style.cursor = 'pointer';
+				});
+		
+				taskDate.addEventListener('click', () => {
+					const dateInput = document.createElement('input');
+					dateInput.type = 'date';
+					dateInput.valueAsDate = new Date(task.dueDate);
+		
+					dateInput.addEventListener('change', () => {
+						let input = dateInput.value;
+						let dateEntered = new Date(input);
+						task.dueDate = parseDate(dateEntered);
+						loadTasks();
+					});
+		
+					taskDate.replaceWith(dateInput);
+					dateInput.focus();
+				});
+			}
+		});
 	}
 
 	// Event listeners to new task
@@ -85,9 +134,24 @@ function generateTasks() {
 }
 
 function addTask(title) {
-	const newTask = new Task(title);
+	const newTask = new Task(title, 'not set', 'normal');
 	tasks.push(newTask);
 	console.log(tasks);
+}
+
+function removeTask(taskTitle) {
+	tasks = tasks.filter(task => task.title !== taskTitle);
+	loadTasks();
+}
+
+function parseDate(dateToParse) {
+	const date = dateToParse.toString();
+	const dateValuesArray = date.split(' ');
+	const dayNumber = dateValuesArray[2];
+	const month = dateValuesArray[1];
+	const year = dateValuesArray[3];
+
+	return `${dayNumber}/${month}/${year}`;
 }
 
 function loadTasks() {

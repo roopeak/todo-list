@@ -33,7 +33,6 @@ function generateTasks() {
 				removeTask(task.title);
 			})
 			
-			
 			const taskTitle = document.createElement('h3');
 			
 			taskTitle.textContent = task.title;
@@ -45,19 +44,39 @@ function generateTasks() {
 			if (task.dueDate === 'not set') {
 				const taskDate = document.createElement('input');
 				taskDate.type = 'date';
-
+			
 				taskDate.addEventListener('change', () => {
 					let input = taskDate.value;
 					let dateEntered = new Date(input);
 					task.dueDate = parseDate(dateEntered);
 					loadTasks();
-				})
-
+				});
+			
 				taskCard.appendChild(taskDate);
 			} else {
 				const taskDate = document.createElement('p');
 				taskDate.textContent = task.dueDate;
 				taskCard.appendChild(taskDate);
+		
+				taskDate.addEventListener('mouseover', () => {
+					taskDate.style.cursor = 'pointer';
+				});
+		
+				taskDate.addEventListener('click', () => {
+					const dateInput = document.createElement('input');
+					dateInput.type = 'date';
+					dateInput.valueAsDate = new Date(task.dueDate);
+		
+					dateInput.addEventListener('change', () => {
+						let input = dateInput.value;
+						let dateEntered = new Date(input);
+						task.dueDate = parseDate(dateEntered);
+						loadTasks();
+					});
+		
+					taskDate.replaceWith(dateInput);
+					dateInput.focus();
+				});
 			}
 		});
 	}

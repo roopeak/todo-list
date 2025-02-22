@@ -1,4 +1,4 @@
-import loadTasks from "./tasks";
+import loadTasks from "./allTasks";
 import loadToday from "./today";
 import loadWeek from "./week";
 

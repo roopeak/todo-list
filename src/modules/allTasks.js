@@ -1,14 +1,6 @@
 import { loadUI } from "./loadUI";
 import Task from './Task';
-
-
-let tasks = [
-	{
-		title: 'Clean a house',
-		dueDate: 'not set',
-		priority: 'normal',
-	}
-];
+import { tasks } from "../index";
 
 function generateTasks() {
 	const allTasksContainer = document.createElement('div');

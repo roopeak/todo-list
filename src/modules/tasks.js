@@ -28,7 +28,6 @@ function generateTasks() {
 			const taskDone = document.createElement('input');
 			taskDone.type = 'checkbox';
 
-			
 			taskDone.addEventListener('click', () => {
 				removeTask(task.title);
 			})
@@ -78,6 +77,23 @@ function generateTasks() {
 					dateInput.focus();
 				});
 			}
+
+			const changePriorityButton = document.createElement('button');
+			changePriorityButton.textContent = 'Normal';
+			taskCard.appendChild(changePriorityButton);
+
+			changePriorityButton.addEventListener('click', () => {
+				if (changePriorityButton.textContent === 'Low') {
+					changePriorityButton.textContent = 'Normal';
+				} else if (changePriorityButton.textContent === 'Normal') {
+					changePriorityButton.textContent = 'High';
+				} else {
+					changePriorityButton.textContent = 'Low';
+				}
+
+				task.priority = changePriorityButton.textContent.toLowerCase();
+			})
+
 		});
 	}
 

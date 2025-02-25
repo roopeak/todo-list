@@ -154,10 +154,11 @@ function createNewTaskInputForm(allTasksContainer) {
 		</form>
 		<button id='cancel-task-add'>Cancel</button>
 	`;
+	allTasksContainer.appendChild(newTaskInputContainer);
 
 	const taskSubmit = document.getElementById('task-submit');
 	const taskCancel = document.getElementById('cancel-task-add');
-
+	console.log(taskSubmit)
 	taskSubmit.addEventListener('click', () => {
 		const taskTitle = document.getElementById('task-input').value;
 		if (taskTitle != '') {

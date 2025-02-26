@@ -19,12 +19,12 @@ let tasks = [
 	},
 	{
 		title: 'Pay invoices',
-		dueDate: '25/Apr/2025',
+		dueDate: '26/Feb/2025',
 		priority: 'high',
 	},
 	{
 		title: 'Buy groceries',
-		dueDate: '15/Mar/2025',
+		dueDate: '26/Feb/2025',
 		priority: 'low',
 	}	
 ];
@@ -175,11 +175,26 @@ function createNewTaskInputForm(allTasksContainer) {
 }
 
 // Generate Today Tasks Container
-function generateTodayTasks() {
-	const todayContainer = createElement('div', 'today-container');
-	const todayHeader = createElement('h1', '', 'Today');
-	todayContainer.appendChild(todayHeader);
-	return todayContainer;
+export function generateTodayTasks() {
+	const todayTasksContainer = createElement('div', 'tasks-container');
+	const tasksHeader = createElement('h1', '', 'Today tasks');
+	const newTask = createElement('div', '', 'New task');
+
+	todayTasksContainer.append(tasksHeader, newTask);
+
+	if (tasks.length > 0) {
+		tasks.forEach(task => {
+			if (task.dueDate === parseDate(Date())) {
+				const taskCard = createTaskCard(task);
+				todayTasksContainer.appendChild(taskCard);
+			}
+		});
+	}
+
+	// Event listeners for new task functionality
+	addNewTaskListeners(newTask, todayTasksContainer);
+
+	return todayTasksContainer;
 }
 
 // Generate This Week Tasks Container

@@ -177,10 +177,10 @@ function createNewTaskInputForm(allTasksContainer) {
 // Generate Today Tasks Container
 export function generateTodayTasks() {
 	const todayTasksContainer = createElement('div', 'tasks-container');
-	const tasksHeader = createElement('h1', '', 'Today tasks');
+	const todayHeader = createElement('h1', '', 'Today tasks');
 	const newTask = createElement('div', '', 'New task');
 
-	todayTasksContainer.append(tasksHeader, newTask);
+	todayTasksContainer.append(todayHeader, newTask);
 
 	if (tasks.length > 0) {
 		tasks.forEach(task => {
@@ -198,10 +198,28 @@ export function generateTodayTasks() {
 }
 
 // Generate This Week Tasks Container
-function generateWeekTasks() {
+export function generateWeekTasks() {
 	const weekContainer = createElement('div', 'week-container');
 	const weekHeader = createElement('h1', '', 'This week');
-	weekContainer.appendChild(weekHeader);
+	const newTask = createElement('div', '', 'New task');
+
+	weekContainer.appendChild(weekHeader, newTask);
+
+	for (let i = 0; i < 7; i++) {
+		let date = new Date();
+		date.setDate(date.getDate() + i);
+		if (tasks.length > 0) {
+			tasks.forEach(task => {
+				if (task.dueDate === parseDate(date)) {
+					const taskCard = createTaskCard(task);
+					weekContainer.appendChild(taskCard);
+				}
+			})
+		}
+		console.log(parseDate(date));
+	}
+	addNewTaskListeners(newTask, weekContainer);
+
 	return weekContainer;
 }
 

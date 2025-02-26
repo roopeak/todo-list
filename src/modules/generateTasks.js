@@ -1,5 +1,6 @@
 import Task from './Task';
 import loadTasks from './allTasks';
+import loadToday from './today';
 
 let tasks = [
 	{

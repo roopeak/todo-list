@@ -199,29 +199,41 @@ export function generateTodayTasks() {
 
 // Generate This Week Tasks Container
 export function generateWeekTasks() {
-	const weekContainer = createElement('div', 'week-container');
-	const weekHeader = createElement('h1', '', 'This week');
-	const newTask = createElement('div', '', 'New task');
+  const weekContainer = createElement('div', 'week-container');
+  const weekHeader = createElement('h1', '', 'This week');
+  const newTask = createElement('div', '', 'New task');
 
-	weekContainer.appendChild(weekHeader, newTask);
+  weekContainer.appendChild(weekHeader);
+  weekContainer.appendChild(newTask);
 
-	for (let i = 0; i < 7; i++) {
-		let date = new Date();
-		date.setDate(date.getDate() + i);
-		if (tasks.length > 0) {
-			tasks.forEach(task => {
-				if (task.dueDate === parseDate(date)) {
-					const taskCard = createTaskCard(task);
-					weekContainer.appendChild(taskCard);
-				}
-			})
-		}
-		console.log(parseDate(date));
-	}
-	addNewTaskListeners(newTask, weekContainer);
+  // Get the current date and find the start of the week (Monday)
+  const today = new Date();
+  const currentDay = today.getDay();
+  const diffToMonday = currentDay === 0 ? -6 : 1 - currentDay; 
+  const startOfWeek = new Date(today);
+  startOfWeek.setDate(today.getDate() + diffToMonday);
 
-	return weekContainer;
+  // Loop through the 7 days of the week, starting from Monday
+  for (let i = 0; i < 7; i++) {
+    let date = new Date(startOfWeek);
+    date.setDate(startOfWeek.getDate() + i);
+
+    // Loop through tasks and add matching ones to the container
+    if (tasks.length > 0) {
+      tasks.forEach(task => {
+        if (task.dueDate === parseDate(date)) {
+          const taskCard = createTaskCard(task);
+          weekContainer.appendChild(taskCard);
+        }
+      })
+    }
+  }
+
+  addNewTaskListeners(newTask, weekContainer);
+
+  return weekContainer;
 }
+
 
 function addTask(title) {
 	const newTask = new Task(title, 'not set', 'normal');

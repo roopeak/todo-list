@@ -9,22 +9,22 @@ let tasks = [
 	},
 	{
 		title: 'Take out trash',
-		dueDate: '1/Mar/2025',
+		dueDate: '01/03/2025',
 		priority: 'low',
 	},
 	{
 		title: 'Study for an exam',
-		dueDate: '5/Mar/2025',
+		dueDate: '05/03/2025',
 		priority: 'high',
 	},
 	{
 		title: 'Pay invoices',
-		dueDate: '26/Feb/2025',
+		dueDate: '28/02/2025',
 		priority: 'high',
 	},
 	{
 		title: 'Buy groceries',
-		dueDate: '26/Feb/2025',
+		dueDate: '01/03/2025',
 		priority: 'low',
 	}	
 ];
@@ -233,13 +233,30 @@ function removeTask(taskTitle) {
 	loadTasks();
 }
 
-// Parse date to 01/Jan/2025 format
+// Parse date to 01/01/2025 format
 function parseDate(dateToParse) {
-	const date = dateToParse.toString();
-	const dateValuesArray = date.split(' ');
-	const dayNumber = dateValuesArray[2];
-	const month = dateValuesArray[1];
-	const year = dateValuesArray[3];
+  const months = {
+    Jan: '01',
+    Feb: '02',
+    Mar: '03',
+    Apr: '04',
+    May: '05',
+    Jun: '06',
+    Jul: '07',
+    Aug: '08',
+    Sep: '09',
+    Oct: '10',
+    Nov: '11',
+    Dec: '12',
+  };
 
-	return `${dayNumber}/${month}/${year}`;
+  const date = dateToParse.toString();
+  const dateValuesArray = date.split(' ');
+
+  const dayNumber = dateValuesArray[2];
+  const month = months[dateValuesArray[1]];
+  const year = dateValuesArray[3];
+
+  return `${dayNumber}/${month}/${year}`;
 }
+

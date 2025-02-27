@@ -2,6 +2,34 @@ import loadTasks from "./allTasks";
 import loadToday from "./today";
 import loadWeek from "./week";
 
+let projects = [
+	{
+		name: 'An example project',
+		tasks: [
+			{
+				name: 'An example task name',
+				dueDate: '01/04/2025',
+				priority: 'normal'
+			},
+		]
+	},
+	{
+		name: 'Another example project',
+		tasks: [
+			{
+				name: 'An example task name',
+				dueDate: '10/03/2025',
+				priority: 'high',
+			},
+			{
+				name: 'Another example task name',
+				dueDate: '15/03/2025',
+				priority: 'low'
+			}
+		]
+	}
+];
+
 function generateSidebar() {
 	const sidebar = document.createElement('aside');
 	const sidebarLinks = document.createElement('nav');
@@ -93,25 +121,29 @@ function generateSidebar() {
 
 		createProjectContainer.innerHTML = 
 			`
-				<form action=addProject()>
-					<input 
-						type='text'
-						id='project-name'
-						placeholder='Enter project name'
-						required>
-					<input
-						type='submit'
-						value='Create'>
-				</form>
+				<input 
+					type='text'
+					id='project-name'
+					placeholder='Enter project name'
+					required>
+				<button class='create-project-button'>
+					Create
+				</button>
 				<button class='cancel-project-button'>
 					Cancel
 				</button>
 			`;
-
 		sidebar.appendChild(createProjectContainer);
+
+		const createButton = document.querySelector('.create-project-button');
+		createButton.addEventListener('click', () => addProjectToSidebar('hello'))
 	});
 
 	return sidebar;
+}
+
+function addProjectToSidebar(name) {
+	console.log(name)
 }
 
 function loadSidebar() {
